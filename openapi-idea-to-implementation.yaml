@@ -1,0 +1,101 @@
+# this file was created live during a livestream event, which you can watch
+# on YouTube at this URL: https://www.youtube.com/watch?v=JEBd78U9aBo
+
+openapi: 3.0.3
+
+info:
+    title: Bookshop API
+    version: "1.0"
+    description: |
+        This API will mimic an e-commerce Bookshop
+        The definition supports markdown so we can
+        make links like [this](https://postman.com)
+
+        Designed using OpenAPI 
+        ![OpenAPI Logo](https://avatars3.githubusercontent.com/u/16343502?v=3&s=100)
+
+servers:
+    - description: Base path for our resources
+      url: /bookshop/v1
+
+
+# path definitions and examples
+paths:
+    # generally want to end in a plural noun
+    /books:
+        get: # fetch a resource
+            summary: Search Books
+            responses:
+                # 2xx - success: 200, 201, 202, etc
+                "200":
+                    description: List of books we found
+                    content:
+                        # keys here are media types
+                        # like json, csv etc
+                        "application/json":
+                            schema:
+                                # return an object
+                                type: object
+                                properties:
+                                    # key of our response
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/Book"
+
+        post:
+            summary: Create a new Book
+            requestBody:
+                content:
+                    "application/json":
+                        schema:
+                            $ref: "#/components/schemas/Book"
+                        examples:
+                            AddABook:
+                                value:
+                                    isbn: "9781234567890"
+                                    title: "The Design of Web APIs"
+                                    author: "Arnaud Lauret"
+            responses:
+                "201":
+                    description: creating a book
+                    content:
+                        "application/json":
+                            schema:
+                                $ref: "#/components/schemas/Book"
+                            examples:
+                                AddABook:
+                                    value:
+                                        id: 1234
+                                        isbn: "9781234567890"
+                                        title: "The Design of Web APIs"
+                                        author: "Arnaud Lauret"
+                                        
+
+
+# parameters, responses, etc go in components
+components: 
+    schemas:
+        Book:
+            description: What is a book?
+            required:
+                - title
+                - isbn
+            properties:
+                # avoid just a list integers, strings
+                # continue to return objects
+                title:
+                    description: can have a description here as well
+                    minLength: 1
+                    maxLength: 200
+                    type: string
+                author:
+                    type: string
+                isbn:
+                    # ISBN for more global identification?
+                    type: string
+                    pattern: (978|979)([0-9]{10})
+                id:
+                    type: integer
+                    readOnly: true
+
