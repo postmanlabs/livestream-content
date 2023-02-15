@@ -1,6 +1,6 @@
 # Hacking with the Homies Developers Conference 2023
 
-Speaker: [Ian Douglas](https://twitter.com/iandouglas736)
+Speaker: [Ian Douglas](https://twitter.com/iandouglas736) 
 Slides: [Google Drive](#coming-soon)
 
 Links to Postman workspaces and collections mentioned during the presentation and live-coding/demonstration:
